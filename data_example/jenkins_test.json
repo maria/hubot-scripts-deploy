@@ -1,0 +1,12 @@
+{
+    "hubot-scripts-deploy": {
+        "testing": {
+            "token": "3333333333333333333",
+            "jobName": "TestHubotScriptsDeploy"
+        },
+        "production": {
+            "token": "4444444444444444444",
+            "jobName": "TestPreProductionHubotScriptsDeploy"
+        }
+    }
+}

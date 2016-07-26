@@ -1,4 +1,4 @@
 module.exports:
-  JENKINS_DEPLOY_DATA_FILE_PATH = "./data/deploy.json"
-  JENKINS_TEST_DATA_FILE_PATH = "./data/test.json"
+  JENKINS_DEPLOY_DATA_FILE_PATH = "./data_example/jenkins_deploy.json"
+  JENKINS_TEST_DATA_FILE_PATH = "./data_example/jenkins_test.json"
   JENKINS_URL = "http://127.0.0.1:8080"
