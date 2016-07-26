@@ -21,9 +21,8 @@
     "url": "https://github.com/maria/hubot-scripts-deploy/issues"
   },
   "homepage": "https://github.com/maria/hubot-scripts-deploy#README.md",
-
   "dependencies": {
     "requestify": "^0.1.17",
-    "cson": "^3.0.2",
+    "cson": "^3.0.2"
   }
 }
