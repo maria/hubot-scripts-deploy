@@ -1,0 +1,4 @@
+module.exports:
+  JENKINS_DATA_DEPLOY = "./data/deploy.json"
+  JENKINS_DATA_TEST = "./data/test.json"
+  JENKINS_URL = "http://127.0.0.1:8080"
