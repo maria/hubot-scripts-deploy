@@ -1,4 +1,4 @@
-config = require(process.env.CONFIG_PATH)
+config = require(process.env.HUBOT_DEPLOY_CONFIG_PATH)
 
 JENKINS_URL = config.JENKINS_URL
 
