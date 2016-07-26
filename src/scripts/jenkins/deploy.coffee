@@ -3,7 +3,7 @@
 #   A deploy job is a regular Jenkins job, which has the scope to deploy a project
 #
 # Commands:
-#   KUBOT deploy <repo> on <environment> [from <branch>] - Deploy the application on a certain environment. If a branch is specified and the job is parametrized, then it will set the branch.
+#   hubot deploy <repo> on <environment> [from <branch>] - Deploy the application on a certain environment. If a branch is specified and the job is parametrized, then it will set the branch.
 
 requestify = require('requestify')
 cson = require('cson')

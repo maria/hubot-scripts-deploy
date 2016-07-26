@@ -1,7 +1,7 @@
 {
   "name": "hubot-scripts-deploy",
-  "version": "0.0.2",
-  "description": "\"A Hubot script to trigger a Jenkins job\"",
+  "version": "0.0.3",
+  "description": "A Hubot script to trigger a CI task. Like starting a deploy on Jenkins via Slack",
   "main": "./deploy",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
