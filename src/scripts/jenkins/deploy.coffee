@@ -11,7 +11,7 @@ cson = require('cson')
 notifyJenkins = require('../main').notifyJenkins
 
 # Load a json file which describes the correlation between command's keywords and Jenkins job configuration
-config = require(process.env.CONFIG_PATH)
+config = require(process.env.HUBOT_DEPLOY_CONFIG_PATH)
 JENKINS_DEPLOY_DATA = cson.parseJSONFile(config.JENKINS_DEPLOY_DATA_FILE_PATH)
 
 module.exports = (robot) ->
