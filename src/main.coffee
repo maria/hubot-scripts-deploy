@@ -4,11 +4,9 @@ JENKINS_URL = config.JENKINS_URL
 
 module.exports =
 
-  notifyJenkins: (jenkinsToken, jenkinsJob, jenkinsBranch, jenkinsEnvironment, cb) ->
+  notifyJenkins: (jenkinsToken, jenkinsJob, jenkinsBranch, cb) ->
     baseUrl = "#{JENKINS_URL}/job/#{jenkinsJob}"
 
-    if appEnv && appBranch
-      url = baseUrl + "/buildWithParameters?token=#{jenkinsToken}&branch=#{jenkinsBranch}&app_environment=#{jenkinsEnvironment}"
     if appBranch
       url = baseUrl + "/buildWithParameters?token=#{jenkinsToken}&branch=#{jenkinsBranch}"
     else

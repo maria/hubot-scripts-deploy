@@ -20,7 +20,7 @@ module.exports = (robot) ->
     jenkinsToken = JENKINS_CONFIG[appRepo][appEnv]["token"]
     jenkinsJob = JENKINS_CONFIG[appRepo][appEnv]["jobName"]
 
-    notifyJenkins jenkinsToken, jenkinsJob, null, null, (what) ->
+    notifyJenkins jenkinsToken, jenkinsJob, null, (what) ->
       console.log(what)
 
     msg.send "I notified Jenkins to start testing of #{appRepo} on #{appEnv}."
