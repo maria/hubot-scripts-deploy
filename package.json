@@ -1,0 +1,24 @@
+{
+  "name": "hubot-scripts-deploy",
+  "version": "0.0.1",
+  "description": "\"A Hubot script to trigger a Jenkins job\"",
+  "main": "./deploy",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/maria/hubot-scripts-deploy.git"
+  },
+  "keywords": [
+    "hubot",
+    "deploy",
+    "ci"
+  ],
+  "author": "Maria Nita",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/maria/hubot-scripts-deploy/issues"
+  },
+  "homepage": "https://github.com/maria/hubot-scripts-deploy#readme"
+}
