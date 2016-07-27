@@ -17,6 +17,17 @@ You can do that :).
 
 (I know you know you can do everything, I just want to make our lives easier by writing the code.)
 
+### Jenkins & Slack use case
+
+```gherkin
+Scenario: Deploy the application food-ordering on the development environment from Slack
+Given I have an application named *food-ordering*
+And I have 3 Jenkins jobs to deploy the application, one for each environment: dev, staging and production
+And The Jenkins job name for deploying the app on dev is *DeployFoodOrderingDev*
+When I write in Slack: *@hubot deploy food-ordering on dev*
+Then the *DeployFoodOrderingDev* job will start.
+```
+
 ## Benefits of solving the problem
 
 Using a Hubot command in Slack to test, deploy, build or whatever you want to do, has the following benefits:
@@ -41,35 +52,28 @@ customize and manage your tasks with these scripts.
 If you're reading this then you should already have 1, 2 at least, and maybe 4.   
 If you don't, you should start with those: A CI tool, a communication channel and connect them.   
 
-To move forward create a [Hubot]() instance, if you don't already have one.
+To move forward create a [Hubot](https://hubot.github.com) instance, if you don't already have one.
 
-
-## Jenkins & Slack use case
-
-```gherkin
-Scenario: Deploy the application food-ordering on the development environment from Slack
-Given I have an application named *food-ordering*
-And I have 3 Jenkins jobs to deploy the application, one for each environment: dev, staging and production
-And The Jenkins job name for deploying the app on dev is *DeployFoodOrderingDev*
-When I write in Slack: *@hubot deploy food-ordering on dev*
-Then the *DeployFoodOrderingDev* job will start.
-```
 
 ## How
 
   1. Installation
-    - Add to your Hubot repository in `package.json` the `hubot-scripts-deploy` package, or via `npm install hubot-scripts-deploy --save`
-    - Enable the script by adding `'hubot-scripts-deploy'` to your  `external-scripts.json` file, in your Hubot project.
+    - Add to your Hubot repository, in `package.json` the `hubot-scripts-deploy` package or via `npm install hubot-scripts-deploy --save`
+    - Enable the script by adding `"hubot-scripts-deploy"` to your  `external-scripts.json` file, in your Hubot project.
 
   2. Configuration
     - Configure the job in Jenkins to be triggered from a script, use [Build Token Root Plugin](https://wiki.jenkins-ci.org/display/JENKINS/Build+Token+Root+Plugin) for this.  
     - In order to map the appropriate command with its CI job, we have to define a JSON for each script we want to use.  
-      Create a JSON file, in a directory wherever on your Hubot server's local storage, with the following format:
+      Create a JSON file, in a directory wherever on your Hubot server's local storage, or even in the git project of your Hubot instance, with the following format:
 
     ```json
     {
       "<nameOfYourProject>": {
-        "<environment>": {
+        "<environment1>": {
+          "token": "<jenkinsJobToken>",
+          "jobName": "<theJenkinsJobName>"
+        },
+        "<environment2>": {
           "token": "<jenkinsJobToken>",
           "jobName": "<theJenkinsJobName>"
         }
@@ -78,11 +82,11 @@ Then the *DeployFoodOrderingDev* job will start.
     ```
 
      For a better understanding & examples, please check [data_example](data_example/) files. The [data_example/jenkins_deploy.json](data_example/jenkins_deploy.json) file  
-     describes a mapping between CI jobs and deploy commands, which defined in the [jenkins/deploy.coffee](src/scripts/jenkins/deploy.coffee) script.  
+     describes a mapping between CI jobs and Hubot deploy commands, which are coded in the [jenkins/deploy.coffee](src/scripts/jenkins/deploy.coffee) script.  
 
-     !*Disclaimer*: The split of the codebase and data for the Jenkins deploy and test commands, it's strictly made for a better scope separation.
+     !*Disclaimer*: The codebase and data are split for the each command type / script, to enable a better scope separation.
 
-    - Create a `config.coffee` file like [config.coffee.example](config.coffee.example) and add the needed settings like:
+    - Create a `config.coffee` file like [config.coffee.example](config.coffee.example) and add the needed settings:
       - *JENKINS_URL* - the URL of your Jenkins master instance, with port and user & password (if set). Keep in mind that the URL must be    
         accessible from the server on which you run your Hubot instance.
       - *JENKINS_DEPLOY_DATA_FILE_PATH* - the absolute path to the JSON file created for the mapping of the deploy commands.
@@ -90,6 +94,22 @@ Then the *DeployFoodOrderingDev* job will start.
 
   3. Run
     - Run your Hubot instance by setting the environment variable `HUBOT_DEPLOY_CONFIG_PATH` to match the absolute path to your `config.coffee` file.
+
+  4. Use
+
+   Now you can go in any Slack channel where Hubot is a member of, or even in a direct   message with him, and type commands like:
+
+   ```
+   @hubot deploy <nameOfYourProject> on <environment1>
+   ```
+   to start the job specified, in your the JSON file, at the *environment1* key of the *nameOfYourProject* entry.
+
+   or
+   ```
+   @hubot deploy <nameOfYourProject2> on <environment1> from staging
+   ```
+   to start the job parametrized with the *staging* git branch.  
+   ! You should configure beforehand your job to accept a *branch* parameter at build.
 
 
 ### Thank you
