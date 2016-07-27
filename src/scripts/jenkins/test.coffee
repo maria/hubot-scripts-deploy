@@ -5,9 +5,8 @@
 # Commands:
 #   hubot test <repo> on <environment> [from <branch>] - Test the application on a certain environment. If a branch is specified and the job is parametrized, then it will set the branch.
 
-requestify = require("requestify")
-
-notifyJenkins = require('../main').notifyJenkins
+cson = require('cson')
+jenkins = require('../../jenkins')
 
 # Load a json file which describes the correlation between command's keywords and Jenkins job configuration
 config = require(process.env.HUBOT_DEPLOY_CONFIG_PATH)
@@ -20,10 +19,10 @@ module.exports = (robot) ->
     appRepo = msg.match[1]
     appEnv = msg.match[2]
 
-    jenkinsToken = JENKINS_CONFIG[appRepo][appEnv]["token"]
-    jenkinsJob = JENKINS_CONFIG[appRepo][appEnv]["jobName"]
+    jenkinsToken = JENKINS_TEST_DATA[appRepo][appEnv]["token"]
+    jenkinsJob = JENKINS_TEST_DATA[appRepo][appEnv]["jobName"]
 
-    notifyJenkins jenkinsToken, jenkinsJob, null, (what) ->
+    jenkins.notifyJenkins jenkinsToken, jenkinsJob, null, (what) ->
       console.log(what)
 
     msg.send "I notified Jenkins to start testing of #{appRepo} on #{appEnv}."
@@ -35,10 +34,10 @@ module.exports = (robot) ->
     appEnv = msg.match[2]
     appBranch = msg.match[3]
 
-    jenkinsToken = JENKINS_CONFIG[appRepo][appEnv]["token"]
-    jenkinsJob = JENKINS_CONFIG[appRepo][appEnv]["jobName"]
+    jenkinsToken = JENKINS_TEST_DATA[appRepo][appEnv]["token"]
+    jenkinsJob = JENKINS_TEST_DATA[appRepo][appEnv]["jobName"]
 
-    notifyJenkins jenkinsToken, jenkinsJob, appBranch, (what) ->
+    jenkins.notifyJenkins jenkinsToken, jenkinsJob, appBranch, (what) ->
       console.log(what)
 
     msg.send "I notified Jenkins to start testing of #{appRepo} on #{appEnv} from #{appBranch}."
