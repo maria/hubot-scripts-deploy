@@ -18,6 +18,6 @@ module.exports = (robot, scripts) ->
               console.log "The script #{script} has been loaded from the module #{scriptModule}."
 
           else if pathStats.isFile()
-              console.log "Load standalone script..."
-              robot.loadFile(scriptPath, scriptModule)
-              console.log "The script #{script} has been loaded."
+            console.log "Load standalone script..."
+            robot.loadFile(scriptPath, scriptModule)
+            console.log "The script #{script} has been loaded."
