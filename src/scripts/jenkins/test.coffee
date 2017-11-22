@@ -10,6 +10,7 @@ jenkins = require('../../jenkins')
 
 # Load a json file which describes the correlation between command's keywords and Jenkins job configuration
 config = require(process.env.HUBOT_DEPLOY_CONFIG_PATH)
+jenkinsTestToken = require(process.env.JENKINS_DEPLOY_TOKEN)
 JENKINS_TEST_DATA = cson.parseJSONFile(config.JENKINS_TEST_DATA_FILE_PATH)
 
 module.exports = (robot) ->
@@ -19,10 +20,9 @@ module.exports = (robot) ->
     appRepo = msg.match[1]
     appEnv = msg.match[2]
 
-    jenkinsToken = JENKINS_TEST_DATA[appRepo][appEnv]["token"]
     jenkinsJob = JENKINS_TEST_DATA[appRepo][appEnv]["jobName"]
 
-    jenkins.notifyJenkins jenkinsToken, jenkinsJob, null, (what) ->
+    jenkins.notifyJenkins jenkinsTestToken, jenkinsJob, null, (what) ->
       console.log(what)
 
     msg.send "I notified Jenkins to start testing of #{appRepo} on #{appEnv}."
@@ -34,10 +34,9 @@ module.exports = (robot) ->
     appEnv = msg.match[2]
     appBranch = msg.match[3]
 
-    jenkinsToken = JENKINS_TEST_DATA[appRepo][appEnv]["token"]
     jenkinsJob = JENKINS_TEST_DATA[appRepo][appEnv]["jobName"]
 
-    jenkins.notifyJenkins jenkinsToken, jenkinsJob, appBranch, (what) ->
+    jenkins.notifyJenkins jenkinsTestToken, jenkinsJob, appBranch, (what) ->
       console.log(what)
 
     msg.send "I notified Jenkins to start testing of #{appRepo} on #{appEnv} from #{appBranch}."
