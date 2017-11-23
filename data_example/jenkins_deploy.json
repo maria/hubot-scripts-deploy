@@ -1,10 +1,6 @@
 {
     "hubot-scripts-deploy": {
-        "staging": {
-            "jobName": "DeployStagingHubotScriptsDeploy"
-        },
-        "production": {
-            "jobName": "DeployProductionHubotScriptsDeploy"
-        }
+        "staging": "DeployStagingHubotScriptsDeploy",
+        "production": "DeployProductionHubotScriptsDeploy"
     }
 }

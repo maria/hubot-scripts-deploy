@@ -29,19 +29,19 @@ jenkinsData =  cson.parseJSONFile("#{process.env.HUBOT_DEPLOY_DATA_FILE_PATH}")
 
 module.exports = (robot) ->
 
-  robot.respond /(cd|ci) help$/i, (msg) ->
+  robot.respond /(ci|cd) help$/i, (msg) ->
     msg.send HELP_MESSAGE
 
-  robot.respond /(cd|ci) view rules$/i, (msg) ->
+  robot.respond /(ci|cd) view rules$/i, (msg) ->
     msg.send "Here is the deploy config: #{cson.stringify(jenkinsData)}."
 
-  robot.respond /(cd|ci) (.*) on (\w+)$/i, (msg) ->
+  robot.respond /(ci|cd) (.*) on (\w+)$/i, (msg) ->
     # Trigger a job only with a given repo and environment
-    appRepo = msg.match[1]
-    appEnv = msg.match[2]
+    appRepo = msg.match[2]
+    appEnv = msg.match[3]
 
     try
-      jenkinsJob = jenkinsData[appRepo][appEnv]["jobName"]
+      jenkinsJob = jenkinsData[appRepo][appEnv]
     catch err
       msg.send "Does your mapping exist? Use (ci|cd) view rules"
       return
@@ -53,12 +53,12 @@ module.exports = (robot) ->
     else
       msg.send "Error sending request to Jenkins - check your command"
 
-  robot.respond /(cd|ci) (.*) on (\w+) with ([\w-_=\/\\\# ]+)$/i, (msg) ->
+  robot.respond /(ci|cd) (.*) on (\w+) with ([\w-_=\/\\\# ]+)$/i, (msg) ->
     # Trigger a job for a given repo and environment, specifying a list of params
     # The Jenkins job has to be configured beforehand to be able to receive
     # parameters, named as they keys set in the command.
-    appRepo = msg.match[1]
-    appEnv = msg.match[2]
+    appRepo = msg.match[2]
+    appEnv = msg.match[3]
 
     try
       jenkinsJob = jenkinsData[appRepo][appEnv]["jobName"]
@@ -67,7 +67,7 @@ module.exports = (robot) ->
       return
 
     # Transform build params from `key1=value1 key2=value2...` to dict
-    buildParams = utils.jsonBuildParams msg.match[3]
+    buildParams = utils.jsonBuildParams msg.match[4]
 
     response = utils.notifyJenkins jenkinsToken, jenkinsJob, buildParams
 

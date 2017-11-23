@@ -66,18 +66,16 @@ To move forward create a [Hubot](https://hubot.github.com) instance, if you don'
     - In order to map the appropriate command with its CI job, we have to define a JSON for each script we want to use.  
       Create a JSON file, in a directory wherever on your Hubot server's local storage, or even in the git project of your Hubot instance, with the following format:
 
-    ```json
-    {
-      "<nameOfYourProject>": {
-        "<environment1>": {
-          "jobName": "<theJenkinsJobName>"
-        },
-        "<environment2>": {
-          "jobName": "<theJenkinsJobName>"
-        }
-      }
+  ```json
+  
+  {
+    "<nameOfYourProject>": {
+      "<environment1>": "<theJenkinsJobName>",
+      "<environment2>": "<theJenkinsJobName>"
     }
-    ```
+  }
+  
+  ```
 
      For a better understanding & examples, please check [data_example](data_example/) files. The [data_example/jenkins_deploy.json](data_example/jenkins_deploy.json) file  
      describes a mapping between CI jobs and Hubot deploy commands, which are coded in the [jenkins/deploy.coffee](src/scripts/jenkins/deploy.coffee) script.  
