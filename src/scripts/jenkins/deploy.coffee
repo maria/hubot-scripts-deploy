@@ -33,7 +33,7 @@ module.exports = (robot) ->
     msg.send HELP_MESSAGE
 
   robot.respond /(cd|ci) view rules$/i, (msg) ->
-    msg.send "Here is the deploy config: #{jenkinsData}."
+    msg.send "Here is the deploy config: #{jenkinsData.toString}."
 
   robot.respond /(cd|ci) (.*) on (\w+)$/i, (msg) ->
     # Trigger a job only with a given repo and environment
