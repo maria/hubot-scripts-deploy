@@ -1,7 +1,6 @@
 requestify = require('requestify')
 
-config = require(process.env.HUBOT_DEPLOY_CONFIG_PATH)
-JENKINS_URL = config.JENKINS_URL
+JENKINS_URL = process.env.JENKINS_URL
 
 module.exports =
 

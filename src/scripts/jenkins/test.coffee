@@ -13,9 +13,8 @@ jenkins = require('../../jenkins')
 
 # Load a json file which describes the correlation between command's keywords
 # and Jenkins job configuration
-config = require(process.env.HUBOT_DEPLOY_CONFIG_PATH)
-jenkinsTestToken = require(process.env.JENKINS_DEPLOY_TOKEN)
-JENKINS_TEST_DATA = cson.parseJSONFile(config.JENKINS_TEST_DATA_FILE_PATH)
+jenkinsTestToken = process.env.JENKINS_DEPLOY_TOKEN
+jenkinsTestData = cson.parseJSONFile(process.env.JENKINS_TEST_DATA_FILE_PATH)
 
 module.exports = (robot) ->
 
@@ -24,7 +23,7 @@ module.exports = (robot) ->
     appRepo = msg.match[1]
     appEnv = msg.match[2]
 
-    jenkinsJob = JENKINS_TEST_DATA[appRepo][appEnv]["jobName"]
+    jenkinsJob = jenkinsTestData[appRepo][appEnv]["jobName"]
 
     jenkins.notifyJenkins jenkinsTestToken, jenkinsJob, null, (what) ->
       console.log(what)
@@ -39,7 +38,7 @@ module.exports = (robot) ->
     appEnv = msg.match[2]
     appBranch = msg.match[3]
 
-    jenkinsJob = JENKINS_TEST_DATA[appRepo][appEnv]["jobName"]
+    jenkinsJob = jenkinsTestData[appRepo][appEnv]["jobName"]
 
     jenkins.notifyJenkins jenkinsTestToken, jenkinsJob, appBranch, (what) ->
       console.log(what)
