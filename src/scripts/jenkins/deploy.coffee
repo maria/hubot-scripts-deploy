@@ -33,13 +33,18 @@ module.exports = (robot) ->
     msg.send HELP_MESSAGE
 
   robot.respond /(cd|ci) view rules$/i, (msg) ->
-    msg.send "Here is the deploy config: #{jenkinsData.toString}."
+    msg.send "Here is the deploy config: #{cson.stringify(jenkinsData)}."
 
   robot.respond /(cd|ci) (.*) on (\w+)$/i, (msg) ->
     # Trigger a job only with a given repo and environment
     appRepo = msg.match[1]
     appEnv = msg.match[2]
-    jenkinsJob = jenkinsData[appRepo][appEnv]["jobName"]
+
+    try
+      jenkinsJob = jenkinsData[appRepo][appEnv]["jobName"]
+    catch err
+      msg.send "Does your mapping exist? Use (ci|cd) view rules"
+      return
 
     response = utils.notifyJenkins jenkinsToken, jenkinsJob, {}
 
@@ -54,7 +59,12 @@ module.exports = (robot) ->
     # parameters, named as they keys set in the command.
     appRepo = msg.match[1]
     appEnv = msg.match[2]
-    jenkinsJob = jenkinsData[appRepo][appEnv]["jobName"]
+
+    try
+      jenkinsJob = jenkinsData[appRepo][appEnv]["jobName"]
+    catch err
+      msg.send "Does your mapping exist? Use (ci|cd) view rules"
+      return
 
     # Transform build params from `key1=value1 key2=value2...` to dict
     buildParams = utils.jsonBuildParams msg.match[3]
