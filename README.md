@@ -70,11 +70,9 @@ To move forward create a [Hubot](https://hubot.github.com) instance, if you don'
     {
       "<nameOfYourProject>": {
         "<environment1>": {
-          "token": "<jenkinsJobToken>",
           "jobName": "<theJenkinsJobName>"
         },
         "<environment2>": {
-          "token": "<jenkinsJobToken>",
           "jobName": "<theJenkinsJobName>"
         }
       }
@@ -87,29 +85,36 @@ To move forward create a [Hubot](https://hubot.github.com) instance, if you don'
      !*Disclaimer*: The codebase and data are split for the each command type / script, to enable a better scope separation.
 
     - Create a `config.coffee` file like [config.coffee.example](config.coffee.example) and add the needed settings:
-      - *JENKINS_URL* - the URL of your Jenkins master instance, with port and user & password (if set). Keep in mind that the URL must be    
-        accessible from the server on which you run your Hubot instance.
-      - *JENKINS_DEPLOY_DATA_FILE_PATH* - the absolute path to the JSON file created for the mapping of the deploy commands.
-      - *JENKINS_TEST_DATA_FILE_PATH* - the absolute path to the JSON file created for the mapping of the test commands.
+      - *JENKINS_URL* - the URL of your Jenkins master instance, with port and user & password (if set). Keep in mind that the URL must be accessible from the server on which you run your Hubot instance.
+      - *HUBOT_DEPLOY_TOKEN* - Jenkins Token for triggering the build remote, it might not be set
+      - *HUBOT_DEPLOY_DATA_FILE_PATH* - the absolute path to the JSON file created for the mapping of the commands.
 
-  3. Run
-    - Run your Hubot instance by setting the environment variable `HUBOT_DEPLOY_CONFIG_PATH` to match the absolute path to your `config.coffee` file.
-
-  4. Use
+  3. Use
 
    Now you can go in any Slack channel where Hubot is a member of, or even in a direct   message with him, and type commands like:
 
    ```
-   @hubot deploy <nameOfYourProject> on <environment1>
+   @hubot (ci|cd) help
+   ```
+   to see extra help
+   
+   ```
+   @hubot (ci|cd) view rules
+   ```
+   to see the content of *HUBOT_DEPLOY_DATA_FILE_PATH*
+   
+   ```
+   @hubot (ci|cd) <nameOfYourProject> on <environment1>
    ```
    to start the job specified, in your the JSON file, at the *environment1* key of the *nameOfYourProject* entry.
 
    or
    ```
-   @hubot deploy <nameOfYourProject2> on <environment1> from staging
+   @hubot ci <nameOfYourProject2> on <environment1> with branch=staging region=us-east-1
    ```
-   to start the job parametrized with the *staging* git branch.  
-   ! You should configure beforehand your job to accept a *branch* parameter at build.
+   to start the job parametrized with the *staging* as the git branch and region.
+   
+   ! You should configure beforehand your job to accept the parameter at build.
 
 
 ### Thank you
