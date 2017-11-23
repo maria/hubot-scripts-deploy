@@ -1,7 +1,7 @@
 {
   "name": "hubot-scripts-deploy",
-  "version": "0.2.1",
-  "description": "A Hubot script to trigger a CI task. Like starting a deploy on Jenkins via Slack",
+  "version": "0.2.3",
+  "description": "A Hubot script to trigger a CI/CD task on Jenkins via Slack",
   "main": "deploy.coffee",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
@@ -22,7 +22,7 @@
   },
   "homepage": "https://github.com/maria/hubot-scripts-deploy#README.md",
   "dependencies": {
-    "requestify": "^0.1.17",
+    "requestify": "^0.2.5",
     "cson": "^4.1.0"
   }
 }
