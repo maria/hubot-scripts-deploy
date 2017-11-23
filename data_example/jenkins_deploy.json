@@ -1,11 +1,9 @@
 {
     "hubot-scripts-deploy": {
         "staging": {
-            "token": "111111111111111111111",
             "jobName": "DeployStagingHubotScriptsDeploy"
         },
         "production": {
-            "token": "2222222222222222222222",
             "jobName": "DeployProductionHubotScriptsDeploy"
         }
     }
