@@ -1,2 +1,4 @@
 data_example
 config.coffee.example
+node_modules
+coffeelint.json

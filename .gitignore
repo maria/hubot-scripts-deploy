@@ -1,2 +1,4 @@
 config.coffee
 data
+node_modules
+*log
