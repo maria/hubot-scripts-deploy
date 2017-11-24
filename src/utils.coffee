@@ -5,7 +5,7 @@ JENKINS_URL = process.env.JENKINS_URL
 module.exports =
 
   notifyJenkins: (jenkinsToken, jenkinsJob, jenkinsParams, cb) ->
-    baseUrl = "#{JENKINS_URL}/job/#{jenkinsJob}/build?token=#{jenkinsToken}"
+    url = "#{JENKINS_URL}/job/#{jenkinsJob}/build?token=#{jenkinsToken}"
 
     response = requestify.post(url, data)
     console.log("Request sent to #{url}.")
