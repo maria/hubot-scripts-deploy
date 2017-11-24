@@ -1,6 +1,6 @@
 {
-    "hubot-scripts-deploy": {
-        "staging": "DeployStagingHubotScriptsDeploy",
-        "production": "DeployProductionHubotScriptsDeploy"
-    }
+  "hubot-scripts-deploy": {
+      "staging": "DeployStagingHubotScriptsDeploy",
+      "production": "DeployProductionHubotScriptsDeploy"
+  }
 }
