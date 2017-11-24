@@ -1,6 +1,6 @@
 {
   "name": "hubot-scripts-deploy",
-  "version": "0.2.5",
+  "version": "0.2.6",
   "description": "A Hubot script to trigger a CI/CD task on Jenkins via Slack",
   "main": "deploy.coffee",
   "scripts": {
